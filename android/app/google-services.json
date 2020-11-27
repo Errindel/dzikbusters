@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "513383745181",
+    "firebase_url": "https://dzikbusters-d432c.firebaseio.com",
+    "project_id": "dzikbusters-d432c",
+    "storage_bucket": "dzikbusters-d432c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:513383745181:android:7f20ae191f80bd19a13674",
+        "android_client_info": {
+          "package_name": "com.example.dzikbusters"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "513383745181-8026s0uda677amkgk1nvlj2gli2mukn5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1sQ9ULy7jRNySKMIg4joosx39cTiilgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "513383745181-8026s0uda677amkgk1nvlj2gli2mukn5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
