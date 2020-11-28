@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './add_place_screen.dart';
+import './report_a_boar.dart';
 import '../providers/great_places.dart';
 import './place_detail_screen.dart';
 
-class PlacesListScreen extends StatelessWidget {
+class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Places'),
+
+        title: Text('Dzik Busters'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              Navigator.of(context).pushNamed(AddPlaceScreen.routeName);
+              Navigator.of(context).pushNamed(ReportABoar.routeName);
             },
           ),
         ],
@@ -30,7 +31,7 @@ class PlacesListScreen extends StatelessWidget {
               )
             : Consumer<GreatPlaces>(
                 child: Center(
-                  child: const Text('Got no places yet, start adding some!'),
+                  child: const Text(''),
                 ),
                 builder: (ctx, greatPlaces, ch) => greatPlaces.items.length <= 0
                     ? ch
@@ -54,6 +55,25 @@ class PlacesListScreen extends StatelessWidget {
                             ),
                       ),
               ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.timeline),
+            label: 'Ranking',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map),
+            label: 'Mapa zgłoszeń',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_location_alt),
+            label: 'Dodaj zgłoszenie',
+          ),
+        ],
+        currentIndex: 1,
+        selectedItemColor: Colors.amber[800],
+        onTap: null,
       ),
     );
   }

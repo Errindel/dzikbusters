@@ -38,9 +38,10 @@ class _ImageInputState extends State<ImageInput> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
+
         Container(
-          width: 150,
-          height: 100,
+          width: 80,
+          height: 80,
           decoration: BoxDecoration(
             border: Border.all(width: 1, color: Colors.grey),
           ),
@@ -50,10 +51,7 @@ class _ImageInputState extends State<ImageInput> {
                   fit: BoxFit.cover,
                   width: double.infinity,
                 )
-              : Text(
-                  'No Image Taken',
-                  textAlign: TextAlign.center,
-                ),
+              : Icon(Icons.photo_outlined),
           alignment: Alignment.center,
         ),
         SizedBox(
@@ -61,8 +59,8 @@ class _ImageInputState extends State<ImageInput> {
         ),
         Expanded(
           child: FlatButton.icon(
-            icon: Icon(Icons.camera),
-            label: Text('Take Picture'),
+            icon: Icon(Icons.add_a_photo_outlined),
+            label: Text('Zrób zdjęcie'),
             textColor: Theme.of(context).primaryColor,
             onPressed: _takePicture,
           ),
