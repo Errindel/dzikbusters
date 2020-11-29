@@ -25,7 +25,6 @@ class _LocationInputState extends State<LocationInput> {
     setState(() {
       _previewImageUrl = staticMapImageUrl;
     });
-    print(_previewImageUrl);
   }
 
   Future<void> _getCurrentUserLocation() async {

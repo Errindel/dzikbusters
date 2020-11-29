@@ -28,17 +28,14 @@ class _PreviewMapScreenState extends State<PreviewMapScreen> {
             position: LatLng(double.parse(item['latitude']),
                 double.parse(item['longitude'])))
       );
-    print(data);
     markers.addAll(data);
       setState(() {
         final markers = data;
       });
-    // print(_data[0]);
   }
 
   @override
   void initState() {
-    print('DUUPPAPODAPDOAPDOD');
     super.initState();
     parseJson();
   }

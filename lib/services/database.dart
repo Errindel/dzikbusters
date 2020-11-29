@@ -12,10 +12,10 @@ class Database {
         .add({...data, 'createdAt': FieldValue.serverTimestamp() });
   }
 
-  // static getReport() async {
-  //   await _db
-  //       .collection('reported_cases')
-  //       .get()
-  //   .catchError((error) => print("Failed to add user: $error"));
-  // }
+  static getReport() async {
+    await _db
+        .collection('reported_cases')
+        .get()
+    .catchError((error) => print("Failed to add user: $error"));
+  }
 }
