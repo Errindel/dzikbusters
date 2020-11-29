@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
                     ReportABoar.routeName: (ctx) => ReportABoar(),
                     PreviewMapScreen.routeName: (ctx) => PreviewMapScreen(),
                     ToDoAfter.routeName: (ctx) => ToDoAfter(),
+                    Dashboard.routeName: (ctx) => Dashboard(),
                   });
         });
   }

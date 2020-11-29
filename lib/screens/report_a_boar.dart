@@ -21,7 +21,7 @@ class ReportABoar extends StatefulWidget {
 class _ReportABoarState extends State<ReportABoar> {
   final _titleController = TextEditingController();
   int selectedBoarType;
-  int herdCount;
+  int herdCount= 0;
   String selectedSexAndAge;
   int _currentStep = 0;
   File _pickedImage;
@@ -49,14 +49,12 @@ class _ReportABoarState extends State<ReportABoar> {
     if (_pickedLocation == null) {
       return;
     }
-
     Database.saveReportABoar({
       'herdCount': herdCount,
       'location': GeoPoint(
         _pickedLocation.latitude,
         _pickedLocation.longitude,
       ),
-      'pickedImage': _pickedImage,
       'selectedBoarType': selectedBoarType,
       'selectedSexAndAge': selectedSexAndAge,
     });
@@ -233,8 +231,12 @@ class _ReportABoarState extends State<ReportABoar> {
                         decoration: InputDecoration(
                           labelText: 'Liczebność stada',
                         ),
+                        onChanged: (value) {
+                          setState(() {
+                            herdCount = int.parse(value);
+                          });
+                        },
                         onSaved: (value) {
-                          herdCount = int.parse(value);
                         },
                       ),
                     ),

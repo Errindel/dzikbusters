@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:provider/provider.dart';
 
 class Article extends StatefulWidget {
   static const routeName = '/article';

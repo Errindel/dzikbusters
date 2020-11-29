@@ -13,12 +13,9 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 0;
-  dynamic routes = [ToDoAfter.routeName, PreviewMapScreen.routeName, ReportABoar.routeName];
+  dynamic routes = [ToDoAfter.routeName, PreviewMapScreen.routeName, ReportABoar.routeName, ''];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
     Navigator.of(context).pushNamed(routes[index]);
   }
 
@@ -36,8 +33,8 @@ class _DashboardState extends State<Dashboard> {
         unselectedFontSize: 15,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.format_list_numbered),
-            label: 'Lista zadań',
+            icon: Icon(Icons.info),
+            label: 'Informacje',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
@@ -49,7 +46,6 @@ class _DashboardState extends State<Dashboard> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.orange.shade800,
         onTap: _onItemTapped,
       ),
     );
