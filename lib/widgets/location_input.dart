@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 import '../helpers/location_helper.dart';
-import '../screens/map_screen.dart';
+import '../screens/edit_map_screen.dart';
 
 class LocationInput extends StatefulWidget {
   final Function onSelectPlace;
@@ -42,7 +42,7 @@ class _LocationInputState extends State<LocationInput> {
     final selectedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
         fullscreenDialog: true,
-        builder: (ctx) => MapScreen(
+        builder: (ctx) => EditMapScreen(
               isSelecting: true,
             ),
       ),

@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'providers/great_places.dart';
 import 'screens/report_a_boar.dart';
 import 'screens/auth_screen.dart';
-import 'screens/place_detail_screen.dart';
+import 'screens/to_do_after_screen.dart';
 import 'screens/dashboard.dart';
 import 'screens/splash_screen.dart';
+import 'screens/preview_map_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,9 +19,7 @@ class MyApp extends StatelessWidget {
         // Initialize FlutterFire:
         future: _initialization,
         builder: (context, appSnapshot) {
-          return ChangeNotifierProvider.value(
-              value: GreatPlaces(),
-              child: MaterialApp(
+          return  MaterialApp(
                   title: 'Report a boar',
                   theme: ThemeData(
                     primarySwatch: Colors.green,
@@ -57,8 +54,9 @@ class MyApp extends StatelessWidget {
                           }),
                   routes: {
                     ReportABoar.routeName: (ctx) => ReportABoar(),
-                    PlaceDetailScreen.routeName: (ctx) => PlaceDetailScreen(),
-                  }));
+                    PreviewMapScreen.routeName: (ctx) => PreviewMapScreen(),
+                    ToDoAfter.routeName: (ctx) => ToDoAfter(),
+                  });
         });
   }
 }

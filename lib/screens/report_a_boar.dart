@@ -1,16 +1,18 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:location/location.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../services/database.dart';
 import '../widgets/image_input.dart';
 import '../widgets/location_input.dart';
-import '../providers/great_places.dart';
-import '../models/place.dart';
+import '../models/models.dart';
+import './to_do_after_screen.dart';
 
 class ReportABoar extends StatefulWidget {
-  static const routeName = '/add-place';
+  static const routeName = '/report';
 
   @override
   _ReportABoarState createState() => _ReportABoarState();
@@ -23,20 +25,20 @@ class _ReportABoarState extends State<ReportABoar> {
   String selectedSexAndAge;
   int _currentStep = 0;
   File _pickedImage;
-  PlaceLocation _pickedLocation;
+  dynamic _pickedLocation;
 
   void _selectImage(File pickedImage) {
     _pickedImage = pickedImage;
   }
 
   void _selectPlace(double lat, double lng) {
-    _pickedLocation = PlaceLocation(latitude: lat, longitude: lng);
+    _pickedLocation = UserLocation(latitude: lat, longitude: lng);
   }
 
   Future<void> _getInitialLocation() async {
     try {
       final locData = await Location().getLocation();
-      _pickedLocation = PlaceLocation(
+      _pickedLocation = UserLocation(
           latitude: locData.latitude, longitude: locData.longitude);
     } catch (error) {
       return;
@@ -47,9 +49,19 @@ class _ReportABoarState extends State<ReportABoar> {
     if (_pickedLocation == null) {
       return;
     }
-    Provider.of<GreatPlaces>(context, listen: false)
-        .addPlace(_titleController.text, _pickedImage, _pickedLocation);
-    Navigator.of(context).pop();
+
+    Database.saveReportABoar({
+      'herdCount': herdCount,
+      'location': GeoPoint(
+        _pickedLocation.latitude,
+        _pickedLocation.longitude,
+      ),
+      'pickedImage': _pickedImage,
+      'selectedBoarType': selectedBoarType,
+      'selectedSexAndAge': selectedSexAndAge,
+    });
+    Navigator.of(context).pushNamed(ToDoAfter.routeName);
+
   }
 
   void _selectAgeAndSex(String val) {
@@ -108,7 +120,7 @@ class _ReportABoarState extends State<ReportABoar> {
                         RaisedButton(
                           color: Colors.green.shade200,
                           onPressed: () {
-                            if (_currentStep >= 5) return _sendReport();
+                            if (_currentStep >= 4) return _sendReport();
                             setState(() {
                               _currentStep += 1;
                             });
@@ -218,14 +230,6 @@ class _ReportABoarState extends State<ReportABoar> {
                       title: Text('Dodaj liczebność'),
                       content: TextFormField(
                         keyboardType: TextInputType.number,
-                        textCapitalization: TextCapitalization.none,
-                        enableSuggestions: false,
-                        validator: (value) {
-                          if (value.isEmpty || !value.contains('@')) {
-                            return 'Please enter a valid email address.';
-                          }
-                          return null;
-                        },
                         decoration: InputDecoration(
                           labelText: 'Liczebność stada',
                         ),

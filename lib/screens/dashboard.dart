@@ -1,66 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import './report_a_boar.dart';
-import '../providers/great_places.dart';
-import './place_detail_screen.dart';
+import './to_do_after_screen.dart';
+import './preview_map_screen.dart';
+import './../widgets/knowledge_base.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
+  static const routeName = '/dashboard';
+
+  @override
+  _DashboardState createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  int _selectedIndex = 0;
+  dynamic routes = [ToDoAfter.routeName, PreviewMapScreen.routeName, ReportABoar.routeName];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.of(context).pushNamed(routes[index]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
-        title: Text('Dzik Busters'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pushNamed(ReportABoar.routeName);
-            },
-          ),
-        ],
+        leading: Image.asset('assets/launcher.png'),
+        title: Text('DzikApp'),
       ),
-      body: FutureBuilder(
-        future: Provider.of<GreatPlaces>(context, listen: false)
-            .fetchAndSetPlaces(),
-        builder: (ctx, snapshot) => snapshot.connectionState ==
-                ConnectionState.waiting
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Consumer<GreatPlaces>(
-                child: Center(
-                  child: const Text(''),
-                ),
-                builder: (ctx, greatPlaces, ch) => greatPlaces.items.length <= 0
-                    ? ch
-                    : ListView.builder(
-                        itemCount: greatPlaces.items.length,
-                        itemBuilder: (ctx, i) => ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: FileImage(
-                                  greatPlaces.items[i].image,
-                                ),
-                              ),
-                              title: Text(greatPlaces.items[i].title),
-                              subtitle:
-                                  Text(greatPlaces.items[i].location.address),
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  PlaceDetailScreen.routeName,
-                                  arguments: greatPlaces.items[i].id,
-                                );
-                              },
-                            ),
-                      ),
-              ),
-      ),
+      body: KnowledgeBase(),
       bottomNavigationBar: BottomNavigationBar(
+        iconSize: 40,
+        selectedFontSize: 15,
+        unselectedFontSize: 15,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.timeline),
-            label: 'Ranking',
+            icon: Icon(Icons.format_list_numbered),
+            label: 'Lista zadań',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
@@ -71,9 +48,9 @@ class Dashboard extends StatelessWidget {
             label: 'Dodaj zgłoszenie',
           ),
         ],
-        currentIndex: 1,
-        selectedItemColor: Colors.amber[800],
-        onTap: null,
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.orange.shade800,
+        onTap: _onItemTapped,
       ),
     );
   }

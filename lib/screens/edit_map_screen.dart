@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../models/place.dart';
+import '../models/models.dart';
 
-class MapScreen extends StatefulWidget {
-  final PlaceLocation initialLocation;
+class EditMapScreen extends StatefulWidget {
+  final UserLocation initialLocation;
   final bool isSelecting;
 
-  MapScreen({
+  EditMapScreen({
     this.initialLocation =
-        const PlaceLocation(latitude: 37.422, longitude: -122.084),
+        const UserLocation(latitude: 37.422, longitude: -122.084),
     this.isSelecting = false,
   });
 
   @override
-  _MapScreenState createState() => _MapScreenState();
+  _EditMapScreenState createState() => _EditMapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _EditMapScreenState extends State<EditMapScreen> {
   LatLng _pickedLocation;
+  BitmapDescriptor pinLocationIcon;
 
   void _selectLocation(LatLng position) {
     setState(() {
@@ -27,10 +28,21 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    setCustomMapPin();
+  }
+  void setCustomMapPin() async {
+    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 10.5),
+        'assets/app_logo.png');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Map'),
+        title: Text('Zaznacz dzika na mapie'),
         actions: <Widget>[
           if (widget.isSelecting)
             IconButton(
@@ -57,6 +69,7 @@ class _MapScreenState extends State<MapScreen> {
             : {
                 Marker(
                   markerId: MarkerId('m1'),
+                  icon: pinLocationIcon,
                   position: _pickedLocation ??
                       LatLng(
                         widget.initialLocation.latitude,
